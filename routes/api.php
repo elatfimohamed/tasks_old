@@ -22,4 +22,4 @@ Route::get('/v1/tasks', 'Api\TasksController@index');
 Route::get('/v1/tasks/{task}', 'Api\TasksController@show');
 Route::delete('/v1/tasks/{task}', 'Api\TasksController@destroy');
 Route::post('/v1/tasks/', 'Api\TasksController@store');
-Route::put('/v1/tasks/{task}', 'Api\TasksController@edit');
+Route::put('/v1/tasks/{task}', 'Api\TasksController@update');

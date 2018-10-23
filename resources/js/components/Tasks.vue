@@ -3,14 +3,17 @@
         <div class="flex flex-col">
             <h1 class="text-center text-red-light">Tasques ({{total}})</h1>
             <div class="flex-row">
-                <input type="text" v-model="newTask" @keyup.enter="add" placeholder="Nova Tasca"
+                <form>
+                <input type="text" v-model="newTask" @keyup.enter="add" placeholder="Nova Tasca" required
                        class="m-3 mt-5 p-2 pl-5 shadow border rounded focus:outline-none focus:shadow-outline text-grey-darker">
                 <!--<button @click="add">Afegir</button>-->
                 <svg @click="add" class="h-4 w-4 cursor-pointer fill-current text-green"
                      xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                     <path d="M11 9h4v2h-4v4H9v-4H5V9h4V5h2v4zm-1 11a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"/>
                 </svg>
+                </form>
             </div>
+
             <!--<input :value="newTask" @input="newTask = $event.target.value">-->
             <ul class="list-reset">
                 <!--<li v-for="task in tasks" v-if="task.completed"><strike>{{task.name}}</strike></li>-->
@@ -120,6 +123,7 @@ export default {
       this.filter = newFilter
     },
     add () {
+        if (this.newTask)
       axios.post('/api/v1/tasks', {
         name: this.newTask
       }).then((response) => {
