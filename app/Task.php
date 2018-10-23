@@ -6,35 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
-//    protected $fillable = ['name','completed'];
     protected $guarded = [];
-
 
     public function file()
     {
         return $this->hasOne(File::class);
-//        return $this->hasOne('App\Class');
     }
 
     public function assignFile(File $file)
     {
-
         $file->task_id = $this->id;
         $file->save();
     }
 
-
-    public function assignTags($Tags)
+    public function addTags($tags)
     {
-
-        this->tags()->saveMany(tags);
-
+        $this->tags()->saveMany($tags);
     }
-    public function addTags($tag)
+
+    public function addTag($tag)
     {
-
-        this->tags()->save(tag);
-
+        $this->tags()->save($tag);
     }
 
     public function tags()
@@ -42,6 +34,14 @@ class Task extends Model
         return $this->belongsToMany(Tag::class);
     }
 
+    public function assignUser(User $user)
+    {
+        $this->user()->associate($user);
+        $this->save();
+    }
 
-
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
