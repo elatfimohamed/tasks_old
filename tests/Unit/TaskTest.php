@@ -164,12 +164,14 @@ class TaskTest extends TestCase
          */
         public function map()
         {
+            $task = factory(Task::class)->create([
 
-            
+            ])
+
 
 
 
         }
 
 }
-}
+
