@@ -1,18 +1,14 @@
 <?php
-
 namespace Tests\Unit;
-
 use App\File;
 use App\Tag;
 use App\Task;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-
 class TaskTest extends TestCase
 {
     use RefreshDatabase;
-
     /**
      * @test
      */
@@ -22,17 +18,12 @@ class TaskTest extends TestCase
         $task = Task::create([
             'name' => 'Comprar pa'
         ]);
-
         $userOriginal = factory(User::class)->create();
-
         // 2 Execute
         $task->assignUser($userOriginal);
-
         $user = $task->user;
-
         $this->assertTrue($user->is($userOriginal));
     }
-
     /**
      * @test
      */
@@ -42,20 +33,15 @@ class TaskTest extends TestCase
         $task = Task::create([
             'name' => 'Comprar pa'
         ]);
-
         $tag = Tag::create([
             'name' => 'home'
         ]);
-
         // execució
         $task->addTag($tag);
-
         // Assertion
         $tags = $task->tags;
-
         $this->assertTrue($tags[0]->is($tag));
     }
-
     /**
      * @test
      */
@@ -64,32 +50,24 @@ class TaskTest extends TestCase
         $task = Task::create([
             'name' => 'Comprar pa'
         ]);
-
         $tag1 = Tag::create([
             'name' => 'home'
         ]);
         $tag2 = Tag::create([
             'name' => 'work'
         ]);
-
         $tag3 = Tag::create([
             'name' => 'studies'
         ]);
-
         $tags = [$tag1, $tag2, $tag3];
-
         // execució
         $task->addTags($tags);
-
         // Assertion
         $tags = $task->tags;
-
         $this->assertTrue($tags[0]->is($tag1));
         $this->assertTrue($tags[1]->is($tag2));
         $this->assertTrue($tags[2]->is($tag3));
     }
-
-
     /**
      * @test
      */
@@ -99,29 +77,21 @@ class TaskTest extends TestCase
         $task = Task::create([
             'name' => 'Comprar pa'
         ]);
-
         $fileOriginal = File::create([
             'path' => 'fitxer1.pdf'
         ]);
-
 //        add_file_to_task($file, $task);
         $task->assignFile($fileOriginal);
-
         // 2 Executo -> Wishful programming
-
         // IMPORTANT 2 maneres
         // 1 Aixó torna tota la relació, treball extra
 //        $file = $task->files()->where('path','');
         // 2 Això retorna el object:
-
         $file = $task->file;
-
         // 3 Comprovo
         // $file
         $this->assertTrue($file->is($fileOriginal));
-
     }
-
     /**
      * @test
      */
@@ -133,13 +103,10 @@ class TaskTest extends TestCase
         ]);
         // 2 Executo -> Wishful programming
         $file = $task->file;
-
         // 3 Comprovo
         // $file
         $this->assertNull($file);
-
     }
-
     /**
      * @test
      */
@@ -150,28 +117,16 @@ class TaskTest extends TestCase
         ]);
         $task->toggleCompleted();
         $this->assertTrue($task->completed);
-
         $task = factory(Task::class)->create([
             'completed' => true
         ]);
         $task->toggleCompleted();
         $this->assertFalse($task->completed);
     }
-
-
-        /**
-         * @test
-         */
-        public function map()
-        {
-            $task = factory(Task::class)->create([
-
-            ])
-
-
-
-
-        }
-
+    /**
+     * @test
+     */
+    public function map()
+    {
+    }
 }
-
